@@ -1,0 +1,108 @@
+JFDML JFormDesigner: "8.2.0.0.331" Java: "17.0.9" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+			"$layoutConstraints": "insets 0,hidemode 3,gap 5 5"
+			"$columnConstraints": "[grow,fill]"
+			"$rowConstraints": "[fill][fill][fill][fill][grow,fill]"
+		} ) {
+			name: "this"
+			"$sizePolicy": 1
+			"resizable": false
+			"undecorated": true
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+				"$horizontalGroup": "par l {seq l {space :p:6:p, comp label1:::p::p, space ::78:x, comp minimizeBtn:::p::p, space :0:0:p, comp closeBtn:::p::p}}"
+				"$verticalGroup": "par l {comp label1:::p:41:p, comp closeBtn::l:p::p, comp minimizeBtn::l:p::p}"
+			} ) {
+				name: "panel1"
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label1"
+					"text": "Dame Mods client v1.0"
+					"preferredSize": new java.awt.Dimension( 220, 40 )
+					"minimumSize": new java.awt.Dimension( 220, 40 )
+					"maximumSize": new java.awt.Dimension( 220, 40 )
+					"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 6, false )
+					"opaque": true
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/smurf_small.png" )
+					"iconTextGap": 6
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "minimizeBtn"
+					"maximumSize": new java.awt.Dimension( 47, 40 )
+					"minimumSize": new java.awt.Dimension( 47, 40 )
+					"preferredSize": new java.awt.Dimension( 47, 40 )
+					"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/minimize_small.png" )
+					"background": new java.awt.Color( 36, 41, 46, 255 )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "closeBtn"
+					"preferredSize": new java.awt.Dimension( 47, 40 )
+					"minimumSize": new java.awt.Dimension( 47, 40 )
+					"maximumSize": new java.awt.Dimension( 47, 40 )
+					"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/close_small.png" )
+					"background": new java.awt.Color( 36, 41, 46, 255 )
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 0"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "subTitle1Label"
+				"text": "El cliente definitivo para descargar mods"
+				"font": &SwingDerivedFont0 new com.jformdesigner.model.SwingDerivedFont( null, 65536, 9, false )
+				"horizontalAlignment": 0
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 1"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "subTitle2Label"
+				"text": "de nuestros servers de Maincra."
+				"font": #SwingDerivedFont0
+				"horizontalAlignment": 0
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 2"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
+				"$layoutConstraints": "fill,hidemode 3"
+				"$columnConstraints": "[fill][fill]"
+				"$rowConstraints": "[]"
+			} ) {
+				name: "downloadBtnsWrapper"
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "nonPresentBtn"
+					"text": "Descargar faltantes"
+					"font": &SwingDerivedFont1 new com.jformdesigner.model.SwingDerivedFont( null, 0, 4, false )
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/download_small.png" )
+					"iconTextGap": 12
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "pad 0 3 0 0,cell 0 0,height 40:40:40"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "allBtn"
+					"text": "Descargar todos"
+					"font": #SwingDerivedFont1
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/download_small.png" )
+					"iconTextGap": 12
+				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+					"value": "pad 0 0 0 -3,cell 1 0,height 40:40:40"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 3"
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "listPane"
+				add( new FormComponent( "javax.swing.JList" ) {
+					name: "list"
+				} )
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "pad 0 10 -10 -10,cell 0 4"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 400, 500 )
+		} )
+	}
+}
