@@ -5,6 +5,7 @@
 package dev.galliard.damemods.ui;
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import net.miginfocom.swing.*;
 
@@ -12,12 +13,58 @@ import net.miginfocom.swing.*;
  * @author jomaa
  */
 public class UIDameMods extends JFrame {
+    private int posX, posY;
     private UIDameMods() {
         initComponents();
     }
 
     public static UIDameMods getInstance() {
         return new UIDameMods();
+    }
+
+    private void closeBtnActionPerformed(ActionEvent e) {
+        this.dispose();
+    }
+
+    private void minimizeBtnActionPerformed(ActionEvent e) {
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((Component) e.getSource());
+        if(frame.getState()!=Frame.ICONIFIED) {
+            frame.setState(Frame.ICONIFIED);
+        } else {
+            frame.setState(Frame.NORMAL);
+        }
+    }
+
+    private void minimizeBtnMouseEntered(MouseEvent e) {
+        minimizeBtn.setBackground(new Color(0x353F44));
+    }
+
+    private void minimizeBtnMouseExited(MouseEvent e) {
+        minimizeBtn.setBackground(new Color(0x24292e));
+    }
+
+    private void closeBtnMouseEntered(MouseEvent e) {
+        closeBtn.setBackground(new Color(0xc42b1c));
+    }
+
+    private void closeBtnMouseExited(MouseEvent e) {
+        closeBtn.setBackground(new Color(0x24292e));
+    }
+
+    private void panel1MouseDragged(MouseEvent e) {
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((Component) e.getSource());
+
+        // Calcular la nueva posición de la ventana
+        int newX = frame.getLocation().x + e.getX() - posX;
+        int newY = frame.getLocation().y + e.getY() - posY;
+
+        // Establecer la nueva posición de la ventana
+        frame.setLocation(newX, newY);
+    }
+
+    private void panel1MousePressed(MouseEvent e) {
+        posX = e.getX();
+        posY = e.getY();
     }
 
     private void initComponents() {
@@ -27,24 +74,22 @@ public class UIDameMods extends JFrame {
         label1 = new JLabel();
         minimizeBtn = new JButton();
         closeBtn = new JButton();
-        subTitle1Label = new JLabel();
-        subTitle2Label = new JLabel();
-        downloadBtnsWrapper = new JPanel();
-        nonPresentBtn = new JButton();
+        label2 = new JLabel();
+        label3 = new JLabel();
+        btnWrapper = new JPanel();
         allBtn = new JButton();
-        listPane = new JScrollPane();
-        list = new JList();
 
         //======== this ========
         setResizable(false);
         setUndecorated(true);
+        setTitle("Dame Mods client v1.0");
+        setIconImage(new ImageIcon(getClass().getResource("/images/smurf_small.png")).getImage());
         var contentPane = getContentPane();
         contentPane.setLayout(new MigLayout(
             "insets 0,hidemode 3,gap 5 5",
             // columns
-            "[grow,fill]",
+            "[fill]",
             // rows
-            "[fill]" +
             "[fill]" +
             "[fill]" +
             "[fill]" +
@@ -52,6 +97,18 @@ public class UIDameMods extends JFrame {
 
         //======== panel1 ========
         {
+            panel1.addMouseMotionListener(new MouseMotionAdapter() {
+                @Override
+                public void mouseDragged(MouseEvent e) {
+                    panel1MouseDragged(e);
+                }
+            });
+            panel1.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    panel1MousePressed(e);
+                }
+            });
 
             //---- label1 ----
             label1.setText("Dame Mods client v1.0");
@@ -70,6 +127,17 @@ public class UIDameMods extends JFrame {
             minimizeBtn.setBorder(null);
             minimizeBtn.setIcon(new ImageIcon(getClass().getResource("/images/minimize_small.png")));
             minimizeBtn.setBackground(new Color(0x24292e));
+            minimizeBtn.addActionListener(e -> minimizeBtnActionPerformed(e));
+            minimizeBtn.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    minimizeBtnMouseEntered(e);
+                }
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    minimizeBtnMouseExited(e);
+                }
+            });
 
             //---- closeBtn ----
             closeBtn.setPreferredSize(new Dimension(47, 40));
@@ -78,6 +146,17 @@ public class UIDameMods extends JFrame {
             closeBtn.setBorder(null);
             closeBtn.setIcon(new ImageIcon(getClass().getResource("/images/close_small.png")));
             closeBtn.setBackground(new Color(0x24292e));
+            closeBtn.addActionListener(e -> closeBtnActionPerformed(e));
+            closeBtn.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    closeBtnMouseEntered(e);
+                }
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    closeBtnMouseExited(e);
+                }
+            });
 
             GroupLayout panel1Layout = new GroupLayout(panel1);
             panel1.setLayout(panel1Layout);
@@ -100,66 +179,50 @@ public class UIDameMods extends JFrame {
         }
         contentPane.add(panel1, "cell 0 0");
 
-        //---- subTitle1Label ----
-        subTitle1Label.setText("El cliente definitivo para descargar mods");
-        subTitle1Label.setFont(subTitle1Label.getFont().deriveFont(subTitle1Label.getFont().getStyle() & ~Font.BOLD, subTitle1Label.getFont().getSize() + 9f));
-        subTitle1Label.setHorizontalAlignment(SwingConstants.CENTER);
-        contentPane.add(subTitle1Label, "cell 0 1");
+        //---- label2 ----
+        label2.setText("Servidor: X");
+        label2.setHorizontalAlignment(SwingConstants.CENTER);
+        label2.setFont(label2.getFont().deriveFont(label2.getFont().getSize() + 8f));
+        contentPane.add(label2, "cell 0 1");
 
-        //---- subTitle2Label ----
-        subTitle2Label.setText("de nuestros servers de Maincra.");
-        subTitle2Label.setFont(subTitle2Label.getFont().deriveFont(subTitle2Label.getFont().getStyle() & ~Font.BOLD, subTitle2Label.getFont().getSize() + 9f));
-        subTitle2Label.setHorizontalAlignment(SwingConstants.CENTER);
-        contentPane.add(subTitle2Label, "cell 0 2");
+        //---- label3 ----
+        label3.setText("Versi\u00f3n: Y | Peso: Z");
+        label3.setHorizontalAlignment(SwingConstants.CENTER);
+        label3.setFont(label3.getFont().deriveFont(label3.getFont().getSize() + 8f));
+        contentPane.add(label3, "cell 0 2");
 
-        //======== downloadBtnsWrapper ========
+        //======== btnWrapper ========
         {
-            downloadBtnsWrapper.setLayout(new MigLayout(
-                "fill,hidemode 3",
+            btnWrapper.setLayout(new MigLayout(
+                "insets 0,hidemode 3,align center center,gap 5 5",
                 // columns
-                "[fill]" +
-                "[fill]",
+                "[grow,fill]",
                 // rows
-                "[]"));
-
-            //---- nonPresentBtn ----
-            nonPresentBtn.setText("Descargar faltantes");
-            nonPresentBtn.setFont(nonPresentBtn.getFont().deriveFont(nonPresentBtn.getFont().getSize() + 4f));
-            nonPresentBtn.setIcon(new ImageIcon(getClass().getResource("/images/download_small.png")));
-            nonPresentBtn.setIconTextGap(12);
-            downloadBtnsWrapper.add(nonPresentBtn, "pad 0 3 0 0,cell 0 0,height 40:40:40");
+                "[grow,fill]"));
 
             //---- allBtn ----
-            allBtn.setText("Descargar todos");
-            allBtn.setFont(allBtn.getFont().deriveFont(allBtn.getFont().getSize() + 4f));
+            allBtn.setText("Requisitos y Mods");
+            allBtn.setFont(allBtn.getFont().deriveFont(allBtn.getFont().getStyle() | Font.BOLD, allBtn.getFont().getSize() + 10f));
             allBtn.setIcon(new ImageIcon(getClass().getResource("/images/download_small.png")));
             allBtn.setIconTextGap(12);
-            downloadBtnsWrapper.add(allBtn, "pad 0 0 0 -3,cell 1 0,height 40:40:40");
+            allBtn.setFocusable(false);
+            btnWrapper.add(allBtn, "pad 0 0 -10 10,cell 0 0,align center center,grow 0 0,height 60:60:60");
         }
-        contentPane.add(downloadBtnsWrapper, "cell 0 3");
-
-        //======== listPane ========
-        {
-            listPane.setViewportView(list);
-        }
-        contentPane.add(listPane, "pad 0 10 -10 -10,cell 0 4");
-        setSize(400, 500);
+        contentPane.add(btnWrapper, "cell 0 3");
+        setSize(400, 210);
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     // Generated using JFormDesigner Educational license - José Manuel Amador Gallardo (José Manuel Amador)
-    private JPanel panel1;
-    private JLabel label1;
-    private JButton minimizeBtn;
-    private JButton closeBtn;
-    private JLabel subTitle1Label;
-    private JLabel subTitle2Label;
-    private JPanel downloadBtnsWrapper;
-    private JButton nonPresentBtn;
-    private JButton allBtn;
-    private JScrollPane listPane;
-    private JList list;
+    protected static JPanel panel1;
+    protected static JLabel label1;
+    protected static JButton minimizeBtn;
+    protected static JButton closeBtn;
+    protected static JLabel label2;
+    protected static JLabel label3;
+    protected static JPanel btnWrapper;
+    protected static JButton allBtn;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }
