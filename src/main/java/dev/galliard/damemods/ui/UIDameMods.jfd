@@ -8,75 +8,36 @@ new FormModel {
 		}
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 			"$layoutConstraints": "insets 0,hidemode 3,gap 5 5"
-			"$columnConstraints": "[fill]"
-			"$rowConstraints": "[fill][fill][fill][grow,fill]"
+			"$columnConstraints": "[grow,fill]"
+			"$rowConstraints": "[][fill][fill][grow,fill][fill]"
 		} ) {
 			name: "this"
 			"resizable": false
-			"undecorated": true
 			"title": "Dame Mods client v1.0"
 			"iconImage": new com.jformdesigner.model.SwingIcon( 0, "/images/smurf_small.png" )
 			"$sizePolicy": 1
-			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-				"$horizontalGroup": "par l {seq l {space :p:6:p, comp label1:::p::p, space ::78:x, comp minimizeBtn:::p::p, space :0:0:p, comp closeBtn:::p::p}}"
-				"$verticalGroup": "par l {comp label1:::p:41:p, comp closeBtn::l:p::p, comp minimizeBtn::l:p::p}"
-			} ) {
-				name: "panel1"
-				addEvent( new FormEvent( "java.awt.event.MouseMotionListener", "mouseDragged", "panel1MouseDragged", true ) )
-				addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "panel1MousePressed", true ) )
-				add( new FormComponent( "javax.swing.JLabel" ) {
-					name: "label1"
-					"text": "Dame Mods client v1.0"
-					"preferredSize": new java.awt.Dimension( 220, 40 )
-					"minimumSize": new java.awt.Dimension( 220, 40 )
-					"maximumSize": new java.awt.Dimension( 220, 40 )
-					"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 6, false )
-					"opaque": true
-					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/smurf_small.png" )
-					"iconTextGap": 6
-				} )
-				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "minimizeBtn"
-					"maximumSize": new java.awt.Dimension( 47, 40 )
-					"minimumSize": new java.awt.Dimension( 47, 40 )
-					"preferredSize": new java.awt.Dimension( 47, 40 )
-					"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
-					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/minimize_small.png" )
-					"background": new java.awt.Color( 36, 41, 46, 255 )
-					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "minimizeBtnActionPerformed", true ) )
-					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseEntered", "minimizeBtnMouseEntered", true ) )
-					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseExited", "minimizeBtnMouseExited", true ) )
-				} )
-				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "closeBtn"
-					"preferredSize": new java.awt.Dimension( 47, 40 )
-					"minimumSize": new java.awt.Dimension( 47, 40 )
-					"maximumSize": new java.awt.Dimension( 47, 40 )
-					"border": sfield com.jformdesigner.model.FormObject NULL_VALUE
-					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/close_small.png" )
-					"background": new java.awt.Color( 36, 41, 46, 255 )
-					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "closeBtnActionPerformed", true ) )
-					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseEntered", "closeBtnMouseEntered", true ) )
-					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseExited", "closeBtnMouseExited", true ) )
-				} )
-			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 0 0"
-			} )
+			"defaultCloseOperation": 3
+			"$locationPolicy": 1
+			"undecorated": false
+			"font": new java.awt.Font( "Dialog", 0, 18 )
+			auxiliary() {
+				"undecorated.forceValue": true
+			}
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label2"
+				name: "serverLabel"
 				"text": "Servidor: X"
 				"horizontalAlignment": 0
-				"font": &SwingDerivedFont0 new com.jformdesigner.model.SwingDerivedFont( null, 0, 8, false )
+				"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 8, false )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 0 1"
+				"value": "cell 0 1,align center center,grow 0 0"
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label3"
+				name: "versionWeightLabel"
 				"text": "Versión: Y | Peso: Z"
 				"horizontalAlignment": 0
-				"font": #SwingDerivedFont0
+				"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 8, false )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
-				"value": "cell 0 2"
+				"value": "cell 0 2,align center center,grow 0 0"
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class net.miginfocom.swing.MigLayout ) {
 				"$columnConstraints": "[grow,fill]"
@@ -85,21 +46,27 @@ new FormModel {
 			} ) {
 				name: "btnWrapper"
 				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "allBtn"
+					name: "downloadBtn"
 					"text": "Requisitos y Mods"
 					"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 10, false )
 					"icon": new com.jformdesigner.model.SwingIcon( 0, "/images/download_small.png" )
 					"iconTextGap": 12
 					"focusable": false
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "downloadBtnActionPerformed", true ) )
 				}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 					"value": "pad 0 0 -10 10,cell 0 0,align center center,grow 0 0,height 60:60:60"
 				} )
 			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
 				"value": "cell 0 3"
 			} )
+			add( new FormComponent( "javax.swing.JProgressBar" ) {
+				name: "progressBar1"
+			}, new FormLayoutConstraints( class net.miginfocom.layout.CC ) {
+				"value": "cell 0 4,height 16:16:16"
+			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 400, 210 )
+			"size": new java.awt.Dimension( 350, 200 )
 		} )
 	}
 }

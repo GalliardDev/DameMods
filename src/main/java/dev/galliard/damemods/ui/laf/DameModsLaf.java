@@ -13,6 +13,7 @@ public class DameModsLaf extends FlatGitHubDarkIJTheme {
 
     private static void setProperties() {
         UIManager.put( "Button.arc", 0 );
+        UIManager.put( "TitleBar.unifiedBackground", false );
     }
 
     @Override
