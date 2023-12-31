@@ -15,10 +15,11 @@ import dev.galliard.damemods.DameMods;
 public class DownloaderThread implements Runnable {
     @Override
     public void run() {
+        UIDameMods.downloadBtn.setEnabled(false);
         download();
         unzip(DameMods.DOWNLOADS_FOLDER + "/modpack.zip", DameMods.DOWNLOADS_FOLDER);
         copyFoldersAndFiles(DameMods.DOWNLOADS_FOLDER + "/modpack/replace", DameMods.MINECRAFT_FOLDER);
-        installForge(DameMods.DOWNLOADS_FOLDER + "/modpack/" + DameMods.FORGE_FOLDER_NAME);
+        installForge(DameMods.DOWNLOADS_FOLDER + "/modpack/");
 
         // Mostrar el diálogo de descarga completada
         JOptionPane.showMessageDialog(UIDameMods.getInstance(), "¡Descarga completada!", "DameMods", JOptionPane.INFORMATION_MESSAGE);
@@ -121,26 +122,16 @@ public class DownloaderThread implements Runnable {
     }
 
     private void installForge(String source) {
+        Path forgePath = Paths.get(DameMods.DOWNLOADS_FOLDER, "modpack");
         try {
-            Path versionsPath = Paths.get(DameMods.MINECRAFT_FOLDER, "versions", DameMods.FORGE_FOLDER_NAME);
-            long totalBytes = Files.walk(Path.of(source)).mapToLong(p -> p.toFile().length()).sum();
-            long bytesRead = 0;
-
-            if (!Files.exists(versionsPath)) {
-                Files.createDirectories(versionsPath);
-            }
-
             for (Path path : Files.walk(Path.of(source)).toArray(Path[]::new)) {
-                Path relativePath = Paths.get(source).relativize(path);
-                Path destination = versionsPath.resolve(relativePath);
-
-                if (Files.isDirectory(path)) {
-                    Files.createDirectories(destination);
-                } else {
-                    Files.copy(path, destination, StandardCopyOption.REPLACE_EXISTING);
-                    bytesRead += Files.size(path);
-                    final int progress = (int) (bytesRead * 100.0 / totalBytes);
-                    SwingUtilities.invokeLater(() -> UIDameMods.progressBar1.setValue(progress));
+                if (path.toString().contains("installer") && path.toString().endsWith(".jar")) {
+                    try {
+                        Process process = new ProcessBuilder("java", "-jar", path.toString()).start();
+                        process.waitFor();
+                    } catch (IOException | InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         } catch (IOException e) {
