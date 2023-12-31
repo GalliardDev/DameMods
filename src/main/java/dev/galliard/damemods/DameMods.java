@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class DameMods {
-    public static final String MINECRAFT_FOLDER = "C:/Users/"+System.getProperty("user.name")+"/Desktop/.minecraft";
+    public static final String MINECRAFT_FOLDER = "C:/Users/"+System.getProperty("user.name")+"/AppData/Roaming/.minecraft";
     public static final String DOWNLOADS_FOLDER = "C:/Users/"+System.getProperty("user.name")+"/Downloads";
     public static final String MODPACK = "https://github.com/GalliardDev/DameMods/releases/download/Modpack/modpack.zip";
     public static final String FORGE_FOLDER_NAME = "1.20.1-forge-47.1.30";
